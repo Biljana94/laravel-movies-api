@@ -32,11 +32,11 @@ class MovieRequest extends FormRequest
                 : null;
 
         return [
-            'title' => 'required',
+            'title' => 'required|unique:movies,title' . ($movieId ? ",$movieId" : ''),
             'director' => 'required',
-            'imageUrl' => 'required',
-            'duration' => 'required',
-            'releaseDate' => 'required',
+            'imageUrl' => 'required|URL',
+            'duration' => 'required|min:1|max:500',
+            'releaseDate' => 'required|unique:movies,releaseDate' . ($movieId ? ",$movieId" : ''),
             'genre' => 'required',
         ];
     }
