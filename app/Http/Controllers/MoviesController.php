@@ -15,9 +15,17 @@ class MoviesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Movie::all();
+        // return Movie::all();
+
+        //filter za movie - u search polje preko title trazimo movie
+        $requestTitle = $request->input('title');
+        if($requestTitle) {
+            return Movie::search($requestTitle);
+        } else {
+            return Movie::all();
+        }
     }
 
     // /**

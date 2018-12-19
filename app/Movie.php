@@ -19,4 +19,8 @@ class Movie extends Model
     // protected $hidden = [
     //     'created_at'
     // ];
+
+    public static function search($title) {
+        return Movie::where('title', 'like', "%title%")->get();
+    }
 }

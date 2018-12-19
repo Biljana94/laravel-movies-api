@@ -32,7 +32,7 @@ class MovieRequest extends FormRequest
                 : null;
 
         return [
-            'title' => 'required|unique:movies,title' . ($movieId ? ",$movieId" : ''),
+            'title' => 'required|unique:movies,title' . ($movieId ? ",$movieId" : ''), //film sa istim titlom ne moze 2 puta biti dodat u bazu
             'director' => 'required',
             'imageUrl' => 'required|URL',
             'duration' => 'required|min:1|max:500',
