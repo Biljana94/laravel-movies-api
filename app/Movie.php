@@ -21,7 +21,7 @@ class Movie extends Model
     // ];
 
     public static function search($title, $take, $skip) {
-        return Movie::where('title', 'like', "%title%")->skip($skip)->take($take)->get();
+        return self::where('title', 'like', "%title%")->take($take)->skip($skip)->latest()->get();
         //paginacija sa skip() i take()
         //`take` označava koliko filmova je potrebno vratiti
         //`skip` označava od kog filma počinje brojanje filmova koje treba vratiti

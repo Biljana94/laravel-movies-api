@@ -34,8 +34,8 @@ class MovieRequest extends FormRequest
         return [
             'title' => 'required|unique:movies,title' . ($movieId ? ",$movieId" : ''), //film sa istim titlom ne moze 2 puta biti dodat u bazu
             'director' => 'required',
-            'imageUrl' => 'required|URL',
-            'duration' => 'required|min:1|max:500',
+            'imageUrl' => 'required|url',
+            'duration' => 'required|numeric|between:1,500',
             'releaseDate' => 'required|unique:movies,releaseDate' . ($movieId ? ",$movieId" : ''),
             'genre' => 'required',
         ];

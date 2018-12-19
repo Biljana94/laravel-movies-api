@@ -22,12 +22,12 @@ class MoviesController extends Controller
         //filter za movie - u search polje preko title trazimo movie
         //paginacija sa skip() i take()
         $requestTitle = $request->input('title'); //uzimamo title koji je unet u input polje
-        $take = $request->input('take') ? $request->input('take') : 10; //`take` označava koliko filmova je potrebno vratiti
-        $skip = $request->input('skip') ? $request->input('skip') : 10; //`skip` označava od kog filma počinje brojanje filmova koje treba vratiti
+        $take = $request->input('take'); //`$take` označava koliko filmova je potrebno vratiti
+        $skip = $request->input('skip'); //`$skip` označava od kog filma počinje brojanje filmova koje treba vratiti
         if($requestTitle) {
             return Movie::search($requestTitle, $take, $skip);
         } else {
-            return Movie::skip($skip)->take($take)->get();
+            return Movie::take($take)->skip($skip)->latest()->get();
         }
     }
 
@@ -50,8 +50,8 @@ class MoviesController extends Controller
     public function store(MovieRequest $request)
     {
         return Movie::create(
-            $request->only([ 'title', 'director', 'imageUrl', 'duration', 'releaseDate', 'genre' ])
-        );
+            $request->only(['title', 'director', 'imageUrl', 'duration', 'releaseDate', 'genre'])
+        ); //kreiramo film, sve
     }
 
     /**
@@ -86,7 +86,7 @@ class MoviesController extends Controller
     public function update(MovieRequest $request, Movie $movie)
     {
         $movie->update(
-            $request->only([ 'title', 'director', 'imageUrl', 'duration', 'releaseDate', 'genre' ])
+            $request->only(['title', 'director', 'imageUrl', 'duration', 'releaseDate', 'genre'])
         );
 
         return $movie;
