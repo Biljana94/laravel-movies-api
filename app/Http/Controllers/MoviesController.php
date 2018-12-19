@@ -20,11 +20,14 @@ class MoviesController extends Controller
         // return Movie::all();
 
         //filter za movie - u search polje preko title trazimo movie
-        $requestTitle = $request->input('title');
+        //paginacija sa skip() i take()
+        $requestTitle = $request->input('title'); //uzimamo title koji je unet u input polje
+        $take = $request->input('take') ? $request->input('take') : 10; //`take` označava koliko filmova je potrebno vratiti
+        $skip = $request->input('skip') ? $request->input('skip') : 10; //`skip` označava od kog filma počinje brojanje filmova koje treba vratiti
         if($requestTitle) {
-            return Movie::search($requestTitle);
+            return Movie::search($requestTitle, $take, $skip);
         } else {
-            return Movie::all();
+            return Movie::skip($skip)->take($take)->get();
         }
     }
 

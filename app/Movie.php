@@ -20,7 +20,10 @@ class Movie extends Model
     //     'created_at'
     // ];
 
-    public static function search($title) {
-        return Movie::where('title', 'like', "%title%")->get();
+    public static function search($title, $take, $skip) {
+        return Movie::where('title', 'like', "%title%")->skip($skip)->take($take)->get();
+        //paginacija sa skip() i take()
+        //`take` označava koliko filmova je potrebno vratiti
+        //`skip` označava od kog filma počinje brojanje filmova koje treba vratiti
     }
 }
