@@ -24,11 +24,12 @@ class MoviesController extends Controller
         $requestTitle = $request->input('title'); //uzimamo title koji je unet u input polje
         $take = $request->input('take'); //`$take` označava koliko filmova je potrebno vratiti
         $skip = $request->input('skip'); //`$skip` označava od kog filma počinje brojanje filmova koje treba vratiti
+        //input i get rade iste stvari ali sa inputom mozemo pristupiti nestovanim podacima(sto se ne nalazi u prvom requestu nego ispod negde)
         if($requestTitle) {
             return Movie::search($requestTitle, $take, $skip);
-        } else {
-            return Movie::take($take)->skip($skip)->latest()->get();
+            //koristimo metodu iz Movie.php modela search() i prosledjujemo joj 3 parametra
         }
+        return Movie::take($take)->skip($skip)->latest()->get();
     }
 
     // /**

@@ -13,7 +13,7 @@ class MovieRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return true; //menjamo na true i dozovljavamo da se pristupi movies
     }
 
     /**
