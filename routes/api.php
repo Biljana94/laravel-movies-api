@@ -19,9 +19,19 @@ use Illuminate\Http\Request;
 //         ->except([ 'edit', 'create' ]);
 // });
 
-
-Route::resource('movies', MoviesController::class)
+//samo autentifikovan korisnik moze da pristupi ovim rutama
+Route::middleware('auth:api')->group(function() {
+    Route::resource('movies', MoviesController::class)
         ->except([ 'edit', 'create' ]);
+});
+
+//ruta za login
+Route::group([
+    'namespace' => 'Auth',
+    'prefix' => 'auth'
+], function() {
+    Route::post('/login', 'AuthController@login');
+});
 
 
 
